@@ -59,6 +59,19 @@
     .btn:active { transform: translateY(1px); }
     .btn:focus { outline: 3px solid rgba(255,255,255,0.12); outline-offset: 3px; }
 
+    /* Link styling */
+    a.livechat-link {
+      color: #00aaff;
+      text-decoration: underline;
+      display: inline-block;
+      margin-top: 1rem;
+      cursor: pointer;
+    }
+
+    a.livechat-link:hover {
+      text-decoration: none;
+    }
+
     /* Prevent intercom bubble from affecting layout */
     #intercom-container, .intercom-lightweight-app, .intercom-launcher-frame {
       position: fixed !important;
@@ -67,9 +80,11 @@
 </head>
 <body>
   <div class="wrapper">
-    <h1>Intercom Messenger Website</h1>
-    <p>We're here to help you with your questions and support needs.</p>
+    <h1>Intercom <a href="#" class="livechat-link" onclick="openIntercomChat(); return false;">Messenger</a> Website</h1>
+    <p>We're here to help you with your questions and support needs. Start </p>
     <button class="btn" aria-label="Chat Now" onclick="openIntercomChat()">Chat Now</button>
+    <br>
+    
   </div>
 
   <script>
@@ -115,11 +130,8 @@
       }
     }
 
-    // Auto-open chat after 1 seconds
-    //setTimeout(function() {
-    //    openIntercomChat();
-    //}, 1000); // 1000 milliseconds = 1 seconds
-
+    // Optional: Auto-open chat after 1 second
+    // setTimeout(openIntercomChat, 1000);
   </script>
 </body>
 </html>
