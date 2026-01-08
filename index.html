@@ -88,52 +88,69 @@
   </div>
 
   <script>
-    // Intercom Settings
-    window.intercomSettings = {
-      api_base: "https://api-iam.intercom.io",
-      app_id: "lu3dtr42"
-    };
+  // Intercom Settings
+  window.intercomSettings = {
+    api_base: "https://api-iam.intercom.io",
+    app_id: "lu3dtr42",
 
-    // Load Intercom Widget
-    (function(){
-      var w=window;
-      var ic=w.Intercom;
-      if(typeof ic==="function"){
-        ic('reattach_activator');
-        ic('update',w.intercomSettings);
-      } else {
-        var d=document;
-        var i=function(){ i.c(arguments); };
-        i.q=[];
-        i.c=function(args){ i.q.push(args); };
-        w.Intercom=i;
-        var l=function(){
-          var s=d.createElement('script');
-          s.type='text/javascript';
-          s.async=true;
-          s.src='https://widget.intercom.io/widget/lu3dtr42';
-          var x=d.getElementsByTagName('script')[0];
-          x.parentNode.insertBefore(s,x);
-        };
-        if(document.readyState==='complete'){ l(); }
-        else if(w.attachEvent){ w.attachEvent('onload',l); }
-        else { w.addEventListener('load',l,false); }
-      }
-    })();
+    // 🔕 Hide popup message notifications, keep red dot
+    hide_notifications: true
+  };
 
-    // Function to open Intercom chat
-    function openIntercomChat() {
-      if (window.Intercom) {
-        window.Intercom('show');
+  // Load Intercom Widget
+  (function () {
+    var w = window;
+    var ic = w.Intercom;
+    if (typeof ic === "function") {
+      ic('reattach_activator');
+      ic('update', w.intercomSettings);
+    } else {
+      var d = document;
+      var i = function () { i.c(arguments); };
+      i.q = [];
+      i.c = function (args) { i.q.push(args); };
+      w.Intercom = i;
+
+      var l = function () {
+        var s = d.createElement('script');
+        s.type = 'text/javascript';
+        s.async = true;
+        s.src = 'https://widget.intercom.io/widget/lu3dtr42';
+        var x = d.getElementsByTagName('script')[0];
+        x.parentNode.insertBefore(s, x);
+      };
+
+      if (document.readyState === 'complete') {
+        l();
+      } else if (w.attachEvent) {
+        w.attachEvent('onload', l);
       } else {
-        console.log('Intercom not loaded yet');
+        w.addEventListener('load', l, false);
       }
     }
+  })();
 
-    // Auto-open chat after 1 seconds
-    //setTimeout(function() {
-    //    openIntercomChat();
-    //}, 1000); // 1000 milliseconds = 1 seconds
-  </script>
-</body>
+  // Function to open Intercom chat manually
+  function openIntercomChat() {
+    if (window.Intercom) {
+      window.Intercom('show');
+    } else {
+      console.log('Intercom not loaded yet');
+    }
+  }
+
+  // Optional safety: ensure no auto-open happens
+  window.addEventListener('load', function () {
+    if (window.Intercom) {
+      window.Intercom('hide');
+    }
+  });
+
+  // Auto-open chat after 1 second (disabled)
+  // setTimeout(function () {
+  //   openIntercomChat();
+  // }, 1000);
+</script>
+
+  </body>
 </html>
