@@ -1,112 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Intercom Messenger Demo</title>
-  <style>
-    :root {
-      --bg: #000;
-      --fg: #fff;
-      --button-bg: #fff;
-      --button-fg: #000;
-    }
-
-    html, body {
-      height: 100%;
-      margin: 0;
-      background: var(--bg);
-      color: var(--fg);
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      overflow: hidden; /* Prevent reflow when Intercom appears */
-    }
-
-    .wrapper {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-      padding: 2rem;
-      width: 100%;
-      max-width: 400px;
-    }
-
-    h1 {
-      margin: 0 0 1.25rem 0;
-      font-size: 1.75rem;
-      letter-spacing: 0.02em;
-    }
-
-    p {
-      margin: 0 0 1.5rem 0;
-      opacity: 0.9;
-    }
-
-    .btn {
-      display: inline-block;
-      background: var(--button-bg);
-      color: var(--button-fg);
-      border: 1px solid currentColor;
-      padding: 0.6rem 1.1rem;
-      font-size: 1rem;
-      text-decoration: none;
-      border-radius: 6px;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    .btn:active { transform: translateY(1px); }
-    .btn:focus { outline: 3px solid rgba(255,255,255,0.12); outline-offset: 3px; }
-
-    /* Link styling */
-    a.livechat-link {
-      color: #00aaff;
-      text-decoration: underline;
-      display: inline-block;
-      margin-top: 1rem;
-      cursor: pointer;
-    }
-
-    a.livechat-link:hover {
-      text-decoration: none;
-    }
-
-    /* Prevent intercom bubble from affecting layout */
-    #intercom-container, .intercom-lightweight-app, .intercom-launcher-frame {
-      position: fixed !important;
-    }
-
-      /* Hide the unread number */
-  .intercom-launcher-badge-count {
-    display: none !important;
-  }
-
-  /* Keep the red dot visible */
-  .intercom-launcher-badge {
-    width: 10px !important;
-    height: 10px !important;
-    min-width: 10px !important;
-    border-radius: 50% !important;
-  }
-  </style>
-</head>
-<body>
-  <div class="wrapper">
-    <h1>Intercom <a href="#" class="livechat-link" onclick="openIntercomChat(); return false;">Messenger</a> Website</h1>
-    <p>We're here to help you with your questions and support needs. Start </p>
-    <button class="btn" aria-label="Chat Now" onclick="openIntercomChat()">Chat Now</button>
-    <br>
-    
-  </div>
-
-  <script>
+<script>
   // Intercom Settings
   window.intercomSettings = {
     api_base: "https://api-iam.intercom.io",
     app_id: "umt12kl0",
 
-    // 🔕 Hide popup message notifications, keep red dot
+    // Hide popup notifications
     hide_notifications: true
   };
 
@@ -114,6 +12,7 @@
   (function () {
     var w = window;
     var ic = w.Intercom;
+
     if (typeof ic === "function") {
       ic('reattach_activator');
       ic('update', w.intercomSettings);
@@ -128,7 +27,10 @@
         var s = d.createElement('script');
         s.type = 'text/javascript';
         s.async = true;
-        s.src = 'https://widget.intercom.io/widget/lu3dtr42';
+
+        // MUST MATCH YOUR APP ID
+        s.src = 'https://widget.intercom.io/widget/umt12kl0';
+
         var x = d.getElementsByTagName('script')[0];
         x.parentNode.insertBefore(s, x);
       };
@@ -143,27 +45,23 @@
     }
   })();
 
-  // Function to open Intercom chat manually
-  function openIntercomChat() {
-    if (window.Intercom) {
-      window.Intercom('show');
-    } else {
-      console.log('Intercom not loaded yet');
-    }
-  }
-
-  // Optional safety: ensure no auto-open happens
+  // AUTO OPEN INTERCOM + START NEW CONVERSATION
   window.addEventListener('load', function () {
-    if (window.Intercom) {
-      window.Intercom('hide');
-    }
+
+    // Wait for widget to fully initialize
+    setTimeout(function () {
+
+      if (window.Intercom) {
+
+        // Open Messenger
+        window.Intercom('show');
+
+        // Force new conversation composer
+        window.Intercom('showNewMessage');
+
+      }
+
+    }, 1500);
+
   });
-
-  // Auto-open chat after 1 second (disabled)
-  // setTimeout(function () {
-  //   openIntercomChat();
-  // }, 1000);
 </script>
-
-  </body>
-</html>
