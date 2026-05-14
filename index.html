@@ -80,7 +80,10 @@
       text-decoration: none;
     }
 
-    /* Prevent Intercom affecting layout */
+    /* =========================
+       PREVENT LAYOUT ISSUES
+    ========================= */
+
     #intercom-container,
     .intercom-lightweight-app,
     .intercom-launcher-frame {
@@ -99,15 +102,57 @@
       min-width: 10px !important;
       border-radius: 50% !important;
     }
+
+    /* =========================
+       BIGGER INTERCOM BUTTON
+    ========================= */
+
+    .intercom-lightweight-app-launcher,
+    .intercom-launcher-frame,
+    .intercom-dfosxs {
+      width: 72px !important;
+      height: 72px !important;
+    }
+
+    /* =========================
+       BIGGER CHAT WINDOW
+    ========================= */
+
+    .intercom-messenger-frame,
+    .intercom-messenger-frame iframe {
+      width: 420px !important;
+      height: 720px !important;
+      max-height: 85vh !important;
+      border-radius: 18px !important;
+    }
+
+    /* =========================
+       MOBILE RESPONSIVE
+    ========================= */
+
+    @media (max-width: 768px) {
+
+      .intercom-messenger-frame,
+      .intercom-messenger-frame iframe {
+        width: 100vw !important;
+        height: 100vh !important;
+        max-height: 100vh !important;
+        border-radius: 0 !important;
+      }
+    }
+
   </style>
 </head>
 
 <body>
 
   <div class="wrapper">
+
     <h1>
       Intercom
-      <a href="#" class="livechat-link" onclick="openIntercomChat(); return false;">
+      <a href="#"
+         class="livechat-link"
+         onclick="openIntercomChat(); return false;">
         Messenger
       </a>
       Website
@@ -117,9 +162,12 @@
       We're here to help you with your questions and support needs.
     </p>
 
-    <button class="btn" aria-label="Chat Now" onclick="openIntercomChat()">
+    <button class="btn"
+            aria-label="Chat Now"
+            onclick="openIntercomChat()">
       Chat Now
     </button>
+
   </div>
 
   <script>
@@ -129,6 +177,7 @@
     // =========================
 
     window.intercomSettings = {
+
       api_base: "https://api-iam.intercom.io",
 
       // YOUR APP ID
@@ -144,6 +193,7 @@
     // =========================
 
     (function () {
+
       var w = window;
       var ic = w.Intercom;
 
@@ -184,13 +234,19 @@
         };
 
         if (document.readyState === 'complete') {
+
           l();
+
         } else if (w.attachEvent) {
+
           w.attachEvent('onload', l);
+
         } else {
+
           w.addEventListener('load', l, false);
         }
       }
+
     })();
 
 
@@ -202,16 +258,15 @@
 
       if (window.Intercom) {
 
-        // Open messenger
+        // Open Messenger
         window.Intercom('show');
 
-        // Open new conversation
+        // Open New Conversation
         window.Intercom('showNewMessage');
 
       } else {
 
         console.log('Intercom not loaded yet');
-
       }
     }
 
@@ -230,9 +285,8 @@
           // Open Messenger
           window.Intercom('show');
 
-          // Start new conversation immediately
+          // Open New Conversation
           window.Intercom('showNewMessage');
-
         }
 
       }, 1500);
